@@ -8,14 +8,12 @@ from src.masks import get_mask_account, get_mask_card_number
 
 def mask_account_card(info: str) -> str:
     """Маскирует номер карты или счёта в строке.
+
     Функция принимает строку с названием и номером,
-    определяет тип (карта или счёт) и применяет нужную маску."""
-
-
-    #Защита от некоррктного ввода
+    определяет тип (карта или счёт) и применяет нужную маску.
+    """
     if " " not in info:
         raise ValueError("Неверный формат: ожидается 'Название Номер'")
-
 
     title, number = info.rsplit(" ", maxsplit=1)
 
@@ -29,11 +27,10 @@ def mask_account_card(info: str) -> str:
 
 def get_date(date_str: str) -> str:
     """Преобразует дату из формата ISO в формат ДД.ММ.ГГГГ."""
+    from datetime import datetime
 
-
-    date_part = date_str.split("T")[0]
-    year, month, day = date_part.split("-")
-    return f"{day}.{month}.{year}"
+    dt = datetime.fromisoformat(date_str)
+    return dt.strftime("%d.%m.%Y")
 
 
 if __name__ == "__main__":
