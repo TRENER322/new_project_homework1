@@ -1,0 +1,25 @@
+[flake8]
+max-line-length = 119
+ignore = W391
+extend-ignore = E203, W503
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    build,
+    dist,
+    .mypy_cache,
+    .pytest_cache,
+    src/__pycache__,
+    tests/__pycache__
+
+# Параметры для вывода
+format = default
+count = True
+statistics = True
+
+# Проверка сложности
+max-complexity = 10
+
+# Дополнительные проверки
+select = E, F, W, C
