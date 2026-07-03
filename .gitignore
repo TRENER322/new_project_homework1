@@ -1,0 +1,57 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE settings
+.idea/
+.vscode/
+*.iml
+
+# Poetry
+poetry.lock
+poetry.toml
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# PyCharm
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Data files (если хочешь исключить)
+data/*.txt
+!data/.gitkeep
+
+# Compiled code
+*.so
+*.dll
+*.dylib
