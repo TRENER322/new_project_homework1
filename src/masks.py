@@ -17,18 +17,15 @@ def get_mask_card_number(card_number: str) -> str:
 
 def get_mask_account(account_number: str) -> str:
     """
-    Маскирует номер банковского счета.
+     Маскирует номер банковского счета.
 
-    Оставляет видимыми только последние 4 цифры.
-    Перед ними добавляются две звёздочки.
+     Оставляет видимыми только последние 4 цифры.
+     Перед ними добавляются две звёздочки.
 
-   Исключения:
-        ValueError: Если номер содержит менее 4 цифр.
+    Исключения:
+         ValueError: Если номер содержит менее 4 цифр.
     """
     account_number = account_number.replace(" ", "")
     if len(account_number) < 4:
         raise ValueError("Номер счета должен содержать минимум 4 цифры.")
     return "**" + account_number[-4:]
-
-
-
