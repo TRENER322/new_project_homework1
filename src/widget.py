@@ -12,6 +12,11 @@ def mask_account_card(info: str) -> str:
     определяет тип (карта или счёт) и применяет нужную маску."""
 
 
+    #Защита от некоррктного ввода
+    if " " not in info:
+        raise ValueError("Неверный формат: ожидается 'Название Номер'")
+
+
     title, number = info.rsplit(" ", maxsplit=1)
 
     if "Счет" in title:
