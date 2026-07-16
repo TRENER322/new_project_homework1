@@ -1,20 +1,20 @@
 def filter_by_state(transactions, state='EXECUTED'):
-    # 1. Создай пустой список, куда будем складывать результат. Назови его, например, result_list.
-    result_list = ...
+    filtered_list = []
 
-    # 2. Напиши цикл for, который будет перебирать все элементы внутри transactions.
-    # Каждый элемент называй, например, transaction.
-    for ... in ...:
+    for transaction in transactions:
+        if transaction.get('state') == state:
+            filtered_list.append(transaction)
 
-        # 3. Внутри цикла: получи значение ключа "state" из текущей транзакции
-        # с помощью метода .get(). Сохрани это значение в переменную current_state.
-        current_state = ...
+    return filtered_list
 
-        # 4. Сравни current_state с тем значением state, которое пришло в функцию.
-        # (Помни: state='EXECUTED' — это параметр функции, который мы проверяем)
-        if ... == ...:
-            # 5. Если они равны, добавь ТЕКУЩУЮ транзакцию (transaction) в твой result_list.
-            result_list.append(...)
 
-    # 6. После того как цикл закончился, верни result_list.
-    return ...
+transactions = [
+    {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
+    {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
+    {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
+    {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}
+]
+
+
+print(filter_by_state(transactions))
+print(filter_by_state(transactions, 'CANCELED'))
