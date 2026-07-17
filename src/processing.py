@@ -1,5 +1,9 @@
-def filter_by_state(transactions, state='EXECUTED'):
-    """Фильтрует транзакции по значению ключа 'state'."""
+from typing import List, Dict, Any
+
+
+def filter_by_state(transactions: List[Dict[str, Any]], state: str = 'EXECUTED') -> List[Dict[str, Any]]:
+    """Фильтрует транзакции по значению ключа 'state'.
+    """
     filtered_list = []
     for transaction in transactions:
         if transaction.get('state') == state:
@@ -7,16 +11,13 @@ def filter_by_state(transactions, state='EXECUTED'):
     return filtered_list
 
 
-def sort_by_date(transactions, descending=True):
-    """Сортирует транзакции по дате."""
-    # Фильтруем транзакции без даты
+def sort_by_date(transactions: List[Dict[str, Any]], descending: bool = True) -> List[Dict[str, Any]]:
+    """Сортирует транзакции по дате.
+    """
     filtered_transactions = [t for t in transactions if t.get('date') is not None]
-
-    # Сортируем по дате
     return sorted(filtered_transactions, key=lambda x: x.get('date'), reverse=descending)
 
 
-# Пример использования
 if __name__ == "__main__":
     transactions = [
         {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
@@ -25,14 +26,12 @@ if __name__ == "__main__":
         {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}
     ]
 
-    # Фильтрация по state
     print("Фильтрация по EXECUTED:")
     print(filter_by_state(transactions))
 
     print("\nФильтрация по CANCELED:")
     print(filter_by_state(transactions, 'CANCELED'))
 
-    # Сортировка по дате
     print("\nСортировка по дате (убывание):")
     print(sort_by_date(transactions))
 
