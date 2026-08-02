@@ -1,4 +1,4 @@
-from typing import List, Dict, Any
+from typing import Any, Dict, List, cast
 
 
 def filter_by_state(transactions: List[Dict[str, Any]], state: str = 'EXECUTED') -> List[Dict[str, Any]]:
@@ -13,4 +13,8 @@ def filter_by_state(transactions: List[Dict[str, Any]], state: str = 'EXECUTED')
 def sort_by_date(transactions: List[Dict[str, Any]], descending: bool = True) -> List[Dict[str, Any]]:
     """Сортирует транзакции по дате."""
     filtered_transactions = [t for t in transactions if t.get('date') is not None]
-    return sorted(filtered_transactions, key=lambda x: x.get('date'), reverse=descending)
+    return sorted(
+        filtered_transactions,
+        key=lambda x: cast(str, x.get('date')),
+        reverse=descending
+    )
