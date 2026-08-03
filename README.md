@@ -12,23 +12,16 @@
 ## Установка
 
 1. Клонируйте репозиторий:
-```bash
 git clone git@github.com:TRENER322/new_project_homework1.git
-```
 
 2. Перейдите в папку проекта:
-```bash
 cd new_project_homework1
-```
 
 3. Установите зависимости с помощью Poetry:
-```bash
 poetry install
-```
 
 ## Использование
 
-```python
 from src.processing import filter_by_state, sort_by_date
 
 transactions = [
@@ -41,29 +34,23 @@ executed = filter_by_state(transactions)
 
 # Сортировка
 sorted_by_date = sort_by_date(transactions)
-```
 
 ## Тестирование
 
 Для запуска тестов используйте команду:
 
-```bash
 pytest
-```
 
 Для проверки покрытия кода:
 
-```bash
 pytest --cov=src --cov-report=html
-```
 
-Отчёт в формате HTML будет сохранён в папке `htmlcov/`. Откройте `htmlcov/index.html` в браузере.
+Отчёт в формате HTML будет сохранён в папке htmlcov/. Откройте htmlcov/index.html в браузере.
 
-### Текущее покрытие: **99%**
+### Текущее покрытие: 99%
 
 ## Структура проекта
 
-```
 new_project_homework1/
 ├── src/
 │   ├── masks.py          # Маскировка номеров
@@ -78,7 +65,6 @@ new_project_homework1/
 ├── pyproject.toml
 ├── poetry.lock
 └── README.md
-```
 
 ## Лицензия
 
