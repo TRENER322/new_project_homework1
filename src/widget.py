@@ -1,40 +1,35 @@
-"""
-Модуль widget для маскировки номеров карт и счетов,
-а также для преобразования формата даты.
-"""
-
 from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(info: str) -> str:
-    """Маскирует номер карты или счёта в строке.
-
-    Функция принимает строку с названием и номером,
-    определяет тип (карта или счёт) и применяет нужную маску.
-    """
+    """Маскирует номер карты или счёта в строке."""
+    if not info:
+        return ""
     if " " not in info:
         raise ValueError("Неверный формат: ожидается 'Название Номер'")
 
-    title, number = info.rsplit(" ", maxsplit=1)
+    parts = info.rsplit(' ', 1)
+    name, number = parts
 
-    if "Счет" in title:
+    if name.lower() == 'счет':
         masked_number = get_mask_account(number)
     else:
         masked_number = get_mask_card_number(number)
 
-    return f"{title} {masked_number}"
+    return f"{name} {masked_number}"
 
 
 def get_date(date_str: str) -> str:
-    """Преобразует дату из формата ISO в формат ДД.ММ.ГГГГ."""
-    from datetime import datetime
-
-    dt = datetime.fromisoformat(date_str)
-    return dt.strftime("%d.%m.%Y")
+    """Преобразует дату из ISO-формата в формат ДД.ММ.ГГГГ."""
+    if not date_str:
+        return ""
+    date_part = date_str.split('T')[0]
+    year, month, day = date_part.split('-')
+    return f"{day}.{month}.{year}"
 
 
 if __name__ == "__main__":
-    test_cases = [
+    test_cases: list[str] = [
         "Maestro 1596837868705199",
         "Счет 64686473678894779589",
         "MasterCard 7158300734726758",

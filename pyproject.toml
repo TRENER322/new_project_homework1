@@ -3,14 +3,13 @@ name = "new-project"
 version = "0.1.0"
 description = "A fresh start"
 authors = [
-    {name = "Dreadsolo",email = "dreadsolo@example.com"}
+    {name = "Dreadsolo", email = "dreadsolo@example.com"}
 ]
 requires-python = "^3.14"
 dependencies = [
     "requests (>=2.34.2,<3.0.0)",
     "beautifulsoup4 (>=4.15.0,<5.0.0)"
 ]
-
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
@@ -21,7 +20,13 @@ dev = [
     "mypy (>=2.1.0,<3.0.0)",
     "pytest (>=9.1.1,<10.0.0)",
     "black (>=26.5.1,<27.0.0)",
-    "flake8 (>=7.3.0,<8.0.0)"
+    "flake8 (>=7.3.0,<8.0.0)",
+    "pytest-cov (>=7.1.0,<8.0.0)",
+    "coverage (>=7.15.2,<8.0.0)",
+    "pluggy (>=1.6.0,<2.0.0)",
+    "iniconfig (>=2.3.0,<3.0.0)",
+    "packaging (>=26.2,<27.0)",
+    "setuptools (>=83.0.0,<84.0.0)"
 ]
 
 lint = [
@@ -31,6 +36,8 @@ lint = [
     "isort (>=8.0.1,<9.0.0)"
 ]
 
+[tool.poetry]
+packages = [{include = "src"}]
 
 [tool.flake8]
 max-line-length = 119
@@ -76,3 +83,12 @@ testpaths = [
     "tests",
 ]
 python_files = "test_*.py"
+
+[tool.coverage.run]
+omit = ["*/widget.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+]
