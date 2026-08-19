@@ -1,3 +1,31 @@
+def filter_by_currency(transactions: list[dict], currency_name: str):
+    """
+    Фильтрует транзакции по валюте.
+    """
+    for transaction in transactions:
+        if transaction.get("operationAmount", {}).get("currency", {}).get("code") == currency_name:
+            yield transaction
+
+
+def transaction_descriptions(transactions: list[dict]):
+    """
+    Генерирует описания транзакций.
+    """
+    for transaction in transactions:
+        if "description" in transaction:
+            yield transaction["description"]
+
+
+def card_number_generator(start: int, stop: int):
+    """
+    Генерирует номера банковских карт в формате XXXX XXXX XXXX XXXX.
+    """
+    for n in range(start, stop + 1):
+        card_number = str(n).zfill(16)
+        yield f"{card_number[:4]} {card_number[4:8]} {card_number[8:12]} {card_number[-4:]}"
+
+
+# ===== Входные данные =====
 transactions = [
     {
         "id": 939719570,
@@ -77,37 +105,15 @@ transactions = [
 ]
 
 
-def filter_by_currency(transactions, currency_name):
-    for transaction in transactions:
-        if transaction["operationAmount"]["currency"]["code"] == currency_name:
-            yield transaction
-
-
+# Фильтрация по валюте
 gen_currency = filter_by_currency(transactions, "RUB")
-
 print(next(gen_currency))
-print(next(gen_currency))
-print(next(gen_currency, 'Пусто'))
 
-
-def transaction_descriptions(transactions: list[dict]):
-    for description in transactions:
-        yield description["description"]
-
-
+# Описания
 gen_descriptions = transaction_descriptions(transactions)
-print(next(gen_descriptions))
-print(next(gen_descriptions))
-print(next(gen_descriptions))
-print(next(gen_descriptions))
-print(next(gen_descriptions))
+for _ in range(5):
+    print(next(gen_descriptions))
 
-
-def card_number_generator(start, stop):
-    for n in range(start, stop+1):
-        card_number = (str(n).zfill(16))
-        yield f"{card_number[:4]} {card_number[4:8]} {card_number[8:12]} {card_number[-4:]}"
-
-
-gen_card_number = (card_number_generator(9999999900, 9999999999))
+# Номера карт
+gen_card_number = card_number_generator(9999999990, 9999999999)
 print(list(gen_card_number))
