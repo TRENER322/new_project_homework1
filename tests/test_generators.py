@@ -4,6 +4,7 @@ from src.generators import card_number_generator, filter_by_currency, transactio
 
 # ===== Фикстуры =====
 
+
 @pytest.fixture
 def sample_transactions():
     """Фикстура с тестовыми транзакциями."""
