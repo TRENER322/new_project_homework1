@@ -14,15 +14,16 @@
 1. Клонируйте репозиторий:
 ```bash
 git clone git@github.com:TRENER322/new_project_homework1.git
-```
+
 
 2. Перейдите в папку проекта:
-```bash
+
+
 cd new_project_homework1
-```
+
 
 3. Установите зависимости с помощью Poetry:
-```bash
+
 poetry install
 ```
 
@@ -51,7 +52,7 @@ sorted_by_date = sort_by_date(transactions)
 
 Фильтрует транзакции по заданной валюте и возвращает итератор.
 
-```python
+```
 from src.generators import filter_by_currency
 
 usd_transactions = filter_by_currency(transactions, "USD")
@@ -63,7 +64,7 @@ for _ in range(2):
 
 Генерирует описания транзакций по очереди.
 
-```python
+```
 from src.generators import transaction_descriptions
 
 descriptions = transaction_descriptions(transactions)
