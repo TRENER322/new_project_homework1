@@ -47,7 +47,7 @@ desktop.ini
 # Logs
 *.log
 
-# Data files (если хочешь исключить)
+# Data files
 data/*.txt
 !data/.gitkeep
 
@@ -55,3 +55,6 @@ data/*.txt
 *.so
 *.dll
 *.dylib
+
+# Environment variables (секретные ключи)
+.env
