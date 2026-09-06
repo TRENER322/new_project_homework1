@@ -18,7 +18,6 @@ git clone git@github.com:TRENER322/new_project_homework1.git
 
 2. Перейдите в папку проекта:
 
-
 cd new_project_homework1
 
 
@@ -83,9 +82,52 @@ for card_number in card_number_generator(1, 5):
     print(card_number)
 ```
 
+## Модуль decorators
+
+Модуль содержит декоратор `log` для автоматического логирования выполнения функций.
+
+### Декоратор log
+
+Декоратор `log` автоматически логирует:
+- Успешное выполнение функции: `{имя_функции} ok`
+- Ошибки: `{имя_функции} error: {тип_ошибки}. Inputs: {args}, {kwargs}`
+
+Декоратор принимает необязательный аргумент `filename`:
+- Если `filename` передан — логи записываются в указанный файл
+- Если `filename` не передан — логи выводятся в консоль
+
+#### Пример использования
+
+```python
+from src.decorators import log
+
+@log(filename="mylog.txt")
+def my_function(x, y):
+    return x + y
+
+my_function(1, 2)  # Запись в файл mylog.txt: my_function ok
+```
+
+#### Пример логирования ошибки
+
+```
+@log(filename="errors.log")
+def divide(a, b):
+    return a / b
+
+divide(10, 0)  # Запись в errors.log: divide error: ZeroDivisionError. Inputs: (10, 0), {}
+```
+
+### Тестирование декоратора
+
+Для запуска тестов декоратора:
+```bash
+pytest tests/test_decorators.py -v
+```
+
 ## Тестирование
 
-Для запуска тестов используйте команду:
+Для запуска всех тестов используйте команду:
 
 ```bash
 pytest
@@ -101,22 +143,36 @@ pytest --cov=src --cov-report=html
 
 ### Текущее покрытие: **100%**
 
+## Типизация кода
+
+Проект полностью типизирован. Все функции и методы имеют аннотации типов.
+
+Для проверки типов используется `mypy`:
+
+```bash
+mypy src tests
+```
+
+Результат: `Success: no issues found in 14 source files`
+
 ## Структура проекта
 
 ```
 new_project_homework1/
 ├── src/
-│   ├── masks.py          # Маскировка номеров
-│   ├── widget.py         # Основные функции
-│   ├── processing.py     # Фильтрация и сортировка
-│   └── generators.py     # Генераторы для обработки данных
+│   ├── decorators.py    # Декоратор log
+│   ├── generators.py    # Генераторы для обработки данных
+│   ├── masks.py         # Маскировка номеров
+│   ├── processing.py    # Фильтрация и сортировка
+│   └── widget.py        # Основные функции
 ├── tests/
-│   ├── conftest.py       # Фикстуры
+│   ├── conftest.py      # Фикстуры
+│   ├── test_decorators.py
+│   ├── test_generators.py
 │   ├── test_masks.py
-│   ├── test_widget.py
 │   ├── test_processing.py
-│   └── test_generators.py
-├── htmlcov/              # Отчёт о покрытии
+│   └── test_widget.py
+├── htmlcov/             # Отчёт о покрытии
 ├── pyproject.toml
 ├── poetry.lock
 └── README.md

@@ -1,17 +1,19 @@
-def filter_by_currency(transactions: list[dict], currency_name: str):
+
+
+def filter_by_currency(transactions_list: list[dict], currency_name: str):
     """
     Фильтрует транзакции по валюте.
     """
-    for transaction in transactions:
+    for transaction in transactions_list:
         if transaction.get("operationAmount", {}).get("currency", {}).get("code") == currency_name:
             yield transaction
 
 
-def transaction_descriptions(transactions: list[dict]):
+def transaction_descriptions(transactions_list: list[dict]):
     """
     Генерирует описания транзакций.
     """
-    for transaction in transactions:
+    for transaction in transactions_list:
         if "description" in transaction:
             yield transaction["description"]
 
