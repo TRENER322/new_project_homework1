@@ -118,12 +118,59 @@ def divide(a, b):
 divide(10, 0)  # Запись в errors.log: divide error: ZeroDivisionError. Inputs: (10, 0), {}
 ```
 
+
 ### Тестирование декоратора
 
 Для запуска тестов декоратора:
 ```bash
 pytest tests/test_decorators.py -v
 ```
+## Модуль utils
+
+Модуль содержит утилиты для работы с данными.
+
+### read_json_file
+
+Функция для чтения JSON-файла с транзакциями.
+
+```python
+from src.utils import read_json_file
+
+transactions = read_json_file("data/operations.json")
+print(len(transactions))  # Вывод: количество транзакций
+```
+
+**Особенности:**
+- Если файл не найден → возвращает пустой список
+- Если файл пустой → возвращает пустой список
+- Если файл содержит не-список → возвращает пустой список
+
+## Модуль external_api
+
+Модуль для работы с внешними API.
+
+### convert_currency
+
+Функция конвертации валюты транзакции в рубли.
+
+```python
+from src.external_api import convert_currency
+
+transaction = {
+    "operationAmount": {
+        "amount": "100",
+        "currency": {"code": "USD"}
+    }
+}
+
+result = convert_currency(transaction)
+print(result)  # Вывод: 8653.79 (сумма в рублях)
+```
+
+**Особенности:**
+- Для USD и EUR обращается к внешнему API для получения курса
+- Для RUB возвращает сумму без изменений
+- Ключ API хранится в `.env` в переменной `EXCHANGE_RATE_API_KEY`
 
 ## Тестирование
 
@@ -153,26 +200,33 @@ pytest --cov=src --cov-report=html
 mypy src tests
 ```
 
-Результат: `Success: no issues found in 14 source files`
+Результат: `Success: no issues found in 18 source files`
 
 ## Структура проекта
 
 ```
 new_project_homework1/
+├── data/
+│   └── operations.json     # Данные с транзакциями
 ├── src/
-│   ├── decorators.py    # Декоратор log
-│   ├── generators.py    # Генераторы для обработки данных
-│   ├── masks.py         # Маскировка номеров
-│   ├── processing.py    # Фильтрация и сортировка
-│   └── widget.py        # Основные функции
+│   ├── decorators.py       # Декоратор log
+│   ├── external_api.py     # Конвертация валют
+│   ├── generators.py       # Генераторы для обработки данных
+│   ├── masks.py            # Маскировка номеров
+│   ├── processing.py       # Фильтрация и сортировка
+│   ├── utils.py            # Утилиты (чтение JSON)
+│   └── widget.py           # Основные функции
 ├── tests/
-│   ├── conftest.py      # Фикстуры
+│   ├── conftest.py         # Фикстуры
 │   ├── test_decorators.py
+│   ├── test_external_api.py
 │   ├── test_generators.py
 │   ├── test_masks.py
 │   ├── test_processing.py
+│   ├── test_utils.py
 │   └── test_widget.py
-├── htmlcov/             # Отчёт о покрытии
+├── .env.example            # Шаблон переменных окружения
+├── htmlcov/                # Отчёт о покрытии
 ├── pyproject.toml
 ├── poetry.lock
 └── README.md
