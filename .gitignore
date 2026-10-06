@@ -58,3 +58,7 @@ data/*.txt
 
 # Environment variables (секретные ключи)
 .env
+
+# Логи
+logs/*.log
+!logs/.gitkeep
