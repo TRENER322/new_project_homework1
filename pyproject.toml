@@ -9,7 +9,9 @@ requires-python = "^3.14"
 dependencies = [
     "requests (>=2.34.2,<3.0.0)",
     "beautifulsoup4 (>=4.15.0,<5.0.0)",
-    "python-dotenv (>=1.2.3,<2.0.0)"
+    "python-dotenv (>=1.2.3,<2.0.0)",
+    "pandas (>=3.0.6,<4.0.0)",
+    "openpyxl (>=3.1.5,<4.0.0)"
 ]
 
 [build-system]
@@ -27,7 +29,8 @@ dev = [
     "pluggy (>=1.6.0,<2.0.0)",
     "iniconfig (>=2.3.0,<3.0.0)",
     "packaging (>=26.2,<27.0)",
-    "setuptools (>=83.0.0,<84.0.0)"
+    "setuptools (>=83.0.0,<84.0.0)",
+    "pandas-stubs (>=3.0.5.260914,<4.0.0.0)"
 ]
 
 lint = [
