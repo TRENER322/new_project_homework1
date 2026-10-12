@@ -46,7 +46,9 @@ def read_transactions_csv(file_path: str) -> List[Dict[str, Any]]:
         for record in df.to_dict(orient="records")
     ]
     logger.info(
-        "CSV-файл успешно прочитан: %s. Записей: %d", file_path, len(transactions)
+        "CSV-файл успешно прочитан: %s. Записей: %d",
+        file_path,
+        len(transactions),
     )
     return transactions
 

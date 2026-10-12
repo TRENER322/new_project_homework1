@@ -58,6 +58,7 @@ def test_read_transactions_csv_error(mock_read_csv):
 
 # ===== Тесты для read_transactions_excel =====
 
+
 @patch("src.csv_excel_reader.pd.read_excel")
 def test_read_transactions_excel_success(mock_read_excel):
     """Тест: успешное чтение Excel."""

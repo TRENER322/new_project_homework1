@@ -54,5 +54,7 @@ def read_json_file(file_path: str) -> List[Dict[str, Any]]:
         return []
 
     except json.JSONDecodeError as error:
-        logger.error("Ошибка декодирования JSON в файле %s: %s", file_path, error)
+        logger.error(
+            "Ошибка декодирования JSON в файле %s: %s", file_path, error
+        )
         return []

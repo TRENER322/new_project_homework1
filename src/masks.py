@@ -36,7 +36,8 @@ def get_mask_card_number(card_number: str) -> str:
 
     if len(card_number) != 16:
         logger.error(
-            "Ошибка маскировки карты: неверная длина номера (%d)", len(card_number)
+            "Ошибка маскировки карты: неверная длина номера (%d)",
+            len(card_number),
         )
         raise ValueError("Номер карты должен содержать ровно 16 цифр.")
 
