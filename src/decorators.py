@@ -7,6 +7,7 @@ def log(filename: Optional[str] = None) -> Callable:
     """
     Декоратор для логирования выполнения функций.
     """
+
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
         def wrapper(*args, **kwargs) -> Any:
@@ -22,14 +23,16 @@ def log(filename: Optional[str] = None) -> Callable:
                 )
                 _write_log(error_message, filename)
                 raise
+
         return wrapper
+
     return decorator
 
 
 def _write_log(message: str, filename: Optional[str] = None) -> None:
     """Записывает лог в файл или в консоль."""
     if filename:
-        with open(filename, 'a', encoding='utf-8') as f:
+        with open(filename, "a", encoding="utf-8") as f:
             f.write(message)
     else:
         sys.stdout.write(message)
@@ -37,6 +40,7 @@ def _write_log(message: str, filename: Optional[str] = None) -> None:
 
 # Временно для проверки
 if __name__ == "__main__":
+
     @log()
     def add(a, b):
         return a + b

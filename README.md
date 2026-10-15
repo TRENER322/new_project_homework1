@@ -172,6 +172,40 @@ print(result)  # Вывод: 8653.79 (сумма в рублях)
 - Для RUB возвращает сумму без изменений
 - Ключ API хранится в `.env` в переменной `EXCHANGE_RATE_API_KEY`
 
+## Модуль csv_excel_reader
+
+Модуль содержит функции для чтения финансовых операций из CSV- и Excel-файлов.
+
+### read_transactions_csv
+
+Читает транзакции из CSV-файла.
+
+```python
+from src.csv_excel_reader import read_transactions_csv
+
+transactions = read_transactions_csv("data/transactions.csv")
+print(len(transactions))
+```
+
+**Особенности:**
+- Разделитель — `;`
+- Если файл не найден или пуст → возвращает пустой список
+
+### read_transactions_excel
+
+Читает транзакции из Excel-файла (.xlsx).
+
+```python
+from src.csv_excel_reader import read_transactions_excel
+
+transactions = read_transactions_excel("data/transactions_excel.xlsx")
+print(len(transactions))
+```
+
+**Особенности:**
+- Использует движок `openpyxl`
+- Если файл не найден или пуст → возвращает пустой список
+
 ## Тестирование
 
 Для запуска всех тестов используйте команду:
@@ -188,7 +222,7 @@ pytest --cov=src --cov-report=html
 
 Отчёт в формате HTML будет сохранён в папке `htmlcov/`. Откройте `htmlcov/index.html` в браузере.
 
-### Текущее покрытие: **100%**
+### Текущее покрытие: **98%**
 
 ## Типизация кода
 
@@ -207,17 +241,23 @@ mypy src tests
 ```
 new_project_homework1/
 ├── data/
-│   └── operations.json     # Данные с транзакциями
+│   ├── operations.json          # Данные с транзакциями (JSON)
+│   ├── transactions.csv         # Данные с транзакциями (CSV)
+│   └── transactions_excel.xlsx  # Данные с транзакциями (Excel)
+├── logs/
+│   └── .gitkeep
 ├── src/
-│   ├── decorators.py       # Декоратор log
-│   ├── external_api.py     # Конвертация валют
-│   ├── generators.py       # Генераторы для обработки данных
-│   ├── masks.py            # Маскировка номеров
-│   ├── processing.py       # Фильтрация и сортировка
-│   ├── utils.py            # Утилиты (чтение JSON)
-│   └── widget.py           # Основные функции
+│   ├── csv_excel_reader.py      # Чтение CSV и Excel
+│   ├── decorators.py            # Декоратор log
+│   ├── external_api.py          # Конвертация валют
+│   ├── generators.py            # Генераторы для обработки данных
+│   ├── masks.py                 # Маскировка номеров
+│   ├── processing.py            # Фильтрация и сортировка
+│   ├── utils.py                 # Утилиты (чтение JSON)
+│   └── widget.py                # Основные функции
 ├── tests/
-│   ├── conftest.py         # Фикстуры
+│   ├── conftest.py              # Фикстуры
+│   ├── test_csv_excel_reader.py
 │   ├── test_decorators.py
 │   ├── test_external_api.py
 │   ├── test_generators.py
@@ -225,8 +265,8 @@ new_project_homework1/
 │   ├── test_processing.py
 │   ├── test_utils.py
 │   └── test_widget.py
-├── .env.example            # Шаблон переменных окружения
-├── htmlcov/                # Отчёт о покрытии
+├── .env.example
+├── htmlcov/
 ├── pyproject.toml
 ├── poetry.lock
 └── README.md

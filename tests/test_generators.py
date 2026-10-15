@@ -1,6 +1,10 @@
 import pytest
 
-from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
+from src.generators import (
+    card_number_generator,
+    filter_by_currency,
+    transaction_descriptions,
+)
 
 # ===== Фикстуры =====
 
@@ -11,23 +15,35 @@ def sample_transactions():
     return [
         {
             "id": 1,
-            "operationAmount": {"amount": "100.00", "currency": {"name": "USD", "code": "USD"}},
-            "description": "Перевод USD"
+            "operationAmount": {
+                "amount": "100.00",
+                "currency": {"name": "USD", "code": "USD"},
+            },
+            "description": "Перевод USD",
         },
         {
             "id": 2,
-            "operationAmount": {"amount": "200.00", "currency": {"name": "RUB", "code": "RUB"}},
-            "description": "Перевод RUB"
+            "operationAmount": {
+                "amount": "200.00",
+                "currency": {"name": "RUB", "code": "RUB"},
+            },
+            "description": "Перевод RUB",
         },
         {
             "id": 3,
-            "operationAmount": {"amount": "300.00", "currency": {"name": "USD", "code": "USD"}},
-            "description": "Перевод USD 2"
+            "operationAmount": {
+                "amount": "300.00",
+                "currency": {"name": "USD", "code": "USD"},
+            },
+            "description": "Перевод USD 2",
         },
         {
             "id": 4,
-            "operationAmount": {"amount": "500.00", "currency": {"name": "USD", "code": "USD"}},
-            "description": "Перевод USD 3"
+            "operationAmount": {
+                "amount": "500.00",
+                "currency": {"name": "USD", "code": "USD"},
+            },
+            "description": "Перевод USD 3",
         },
     ]
 
@@ -40,11 +56,14 @@ def empty_transactions():
 
 # ===== Тесты для filter_by_currency =====
 
+
 def test_filter_by_currency_usd(sample_transactions):
     """Тест фильтрации по USD."""
     result = list(filter_by_currency(sample_transactions, "USD"))
     assert len(result) == 3
-    assert all(t["operationAmount"]["currency"]["code"] == "USD" for t in result)
+    assert all(
+        t["operationAmount"]["currency"]["code"] == "USD" for t in result
+    )
 
 
 def test_filter_by_currency_rub(sample_transactions):
@@ -66,17 +85,23 @@ def test_filter_by_currency_empty(empty_transactions):
     assert len(result) == 0
 
 
-@pytest.mark.parametrize("currency, expected_count", [
-    ("USD", 3),
-    ("RUB", 1),
-])
-def test_filter_by_currency_parametrize(sample_transactions, currency, expected_count):
+@pytest.mark.parametrize(
+    "currency, expected_count",
+    [
+        ("USD", 3),
+        ("RUB", 1),
+    ],
+)
+def test_filter_by_currency_parametrize(
+    sample_transactions, currency, expected_count
+):
     """Параметризованный тест фильтрации по разным валютам."""
     result = list(filter_by_currency(sample_transactions, currency))
     assert len(result) == expected_count
 
 
 # ===== Тесты для transaction_descriptions =====
+
 
 def test_transaction_descriptions(sample_transactions):
     """Тест генерации описаний."""
@@ -102,13 +127,18 @@ def test_transaction_descriptions_no_description():
     """Тест: транзакция без описания."""
     transactions = [
         {"id": 1, "operationAmount": {"currency": {"code": "USD"}}},
-        {"id": 2, "operationAmount": {"currency": {"code": "RUB"}}, "description": "Перевод RUB"},
+        {
+            "id": 2,
+            "operationAmount": {"currency": {"code": "RUB"}},
+            "description": "Перевод RUB",
+        },
     ]
     descriptions = list(transaction_descriptions(transactions))
     assert descriptions == ["Перевод RUB"]
 
 
 # ===== Тесты для card_number_generator =====
+
 
 def test_card_number_generator_small():
     """Тест генерации номеров карт (малый диапазон)."""
@@ -152,12 +182,17 @@ def test_card_number_generator_zero():
     assert cards[0] == "0000 0000 0000 0000"
 
 
-@pytest.mark.parametrize("start, stop, expected_first, expected_last", [
-    (1, 3, "0000 0000 0000 0001", "0000 0000 0000 0003"),
-    (100, 102, "0000 0000 0000 0100", "0000 0000 0000 0102"),
-    (9999, 10001, "0000 0000 0000 9999", "0000 0000 0001 0001"),
-])
-def test_card_number_generator_parametrize(start, stop, expected_first, expected_last):
+@pytest.mark.parametrize(
+    "start, stop, expected_first, expected_last",
+    [
+        (1, 3, "0000 0000 0000 0001", "0000 0000 0000 0003"),
+        (100, 102, "0000 0000 0000 0100", "0000 0000 0000 0102"),
+        (9999, 10001, "0000 0000 0000 9999", "0000 0000 0001 0001"),
+    ],
+)
+def test_card_number_generator_parametrize(
+    start, stop, expected_first, expected_last
+):
     """Параметризованный тест генерации номеров карт."""
     cards = list(card_number_generator(start, stop))
     assert cards[0] == expected_first

@@ -8,10 +8,10 @@ def mask_account_card(info: str) -> str:
     if " " not in info:
         raise ValueError("Неверный формат: ожидается 'Название Номер'")
 
-    parts = info.rsplit(' ', 1)
+    parts = info.rsplit(" ", 1)
     name, number = parts
 
-    if name.lower() == 'счет':
+    if name.lower() == "счет":
         masked_number = get_mask_account(number)
     else:
         masked_number = get_mask_card_number(number)
@@ -23,8 +23,8 @@ def get_date(date_str: str) -> str:
     """Преобразует дату из ISO-формата в формат ДД.ММ.ГГГГ."""
     if not date_str:
         return ""
-    date_part = date_str.split('T')[0]
-    year, month, day = date_part.split('-')
+    date_part = date_str.split("T")[0]
+    year, month, day = date_part.split("-")
     return f"{day}.{month}.{year}"
 
 
