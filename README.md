@@ -206,6 +206,28 @@ print(len(transactions))
 - Использует движок `openpyxl`
 - Если файл не найден или пуст → возвращает пустой список
 
+## Модуль main
+
+Файл `main.py` реализует консольный интерфейс для работы с банковскими транзакциями.
+
+### Возможности:
+- Выбор источника данных (JSON, CSV, XLSX)
+- Фильтрация по статусу операции (EXECUTED, CANCELED, PENDING)
+- Сортировка по дате (по возрастанию или убыванию)
+- Фильтрация по рублевым транзакциям
+- Поиск по слову в описании
+- Вывод отформатированного списка операций
+
+### Запуск:
+```bash
+python main.py
+```
+
+### Новые функции в модуле utils
+
+- `process_bank_search(data, search)` — поиск транзакций по строке в описании с использованием библиотеки `re`.
+- `process_bank_operations(data, categories)` — подсчёт количества операций по категориям с использованием `Counter`.
+
 ## Тестирование
 
 Для запуска всех тестов используйте команду:
@@ -241,32 +263,34 @@ mypy src tests
 ```
 new_project_homework1/
 ├── data/
-│   ├── operations.json          # Данные с транзакциями (JSON)
-│   ├── transactions.csv         # Данные с транзакциями (CSV)
-│   └── transactions_excel.xlsx  # Данные с транзакциями (Excel)
+│ ├── operations.json # Данные с транзакциями (JSON)
+│ ├── transactions.csv # Данные с транзакциями (CSV)
+│ └── transactions_excel.xlsx # Данные с транзакциями (Excel)
 ├── logs/
-│   └── .gitkeep
+│ └── .gitkeep
 ├── src/
-│   ├── csv_excel_reader.py      # Чтение CSV и Excel
-│   ├── decorators.py            # Декоратор log
-│   ├── external_api.py          # Конвертация валют
-│   ├── generators.py            # Генераторы для обработки данных
-│   ├── masks.py                 # Маскировка номеров
-│   ├── processing.py            # Фильтрация и сортировка
-│   ├── utils.py                 # Утилиты (чтение JSON)
-│   └── widget.py                # Основные функции
+│ ├── csv_excel_reader.py # Чтение CSV и Excel
+│ ├── decorators.py # Декоратор log
+│ ├── external_api.py # Конвертация валют
+│ ├── generators.py # Генераторы для обработки данных
+│ ├── masks.py # Маскировка номеров
+│ ├── processing.py # Фильтрация и сортировка
+│ ├── utils.py # Утилиты (чтение JSON, поиск, подсчет категорий)
+│ └── widget.py # Основные функции
 ├── tests/
-│   ├── conftest.py              # Фикстуры
-│   ├── test_csv_excel_reader.py
-│   ├── test_decorators.py
-│   ├── test_external_api.py
-│   ├── test_generators.py
-│   ├── test_masks.py
-│   ├── test_processing.py
-│   ├── test_utils.py
-│   └── test_widget.py
+│ ├── conftest.py # Фикстуры
+│ ├── test_csv_excel_reader.py
+│ ├── test_decorators.py
+│ ├── test_external_api.py
+│ ├── test_generators.py
+│ ├── test_main.py # Тесты для main.py
+│ ├── test_masks.py
+│ ├── test_processing.py
+│ ├── test_utils.py
+│ └── test_widget.py
 ├── .env.example
 ├── htmlcov/
+├── main.py # Основная логика программы (консольный интерфейс)
 ├── pyproject.toml
 ├── poetry.lock
 └── README.md
