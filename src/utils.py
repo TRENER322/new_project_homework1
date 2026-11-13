@@ -1,5 +1,7 @@
 import json
 import logging
+import re
+from collections import Counter
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -27,12 +29,6 @@ if not logger.handlers:
 def read_json_file(file_path: str) -> List[Dict[str, Any]]:
     """
     Читает JSON-файл и возвращает список словарей с данными транзакций.
-
-    Args:
-        file_path (str): Путь к JSON-файлу.
-
-    Returns:
-        List[Dict[str, Any]]: Список словарей с транзакциями.
     """
     logger.debug("Начало чтения JSON-файла: %s", file_path)
 
@@ -58,3 +54,38 @@ def read_json_file(file_path: str) -> List[Dict[str, Any]]:
             "Ошибка декодирования JSON в файле %s: %s", file_path, error
         )
         return []
+
+
+def process_bank_search(data: list[dict], search: str) -> list[dict]:
+    """
+    Ищет транзакции, в описании которых есть заданная строка (с помощью re).
+    """
+    logger.debug("Поиск транзакций по строке: %s", search)
+    try:
+        # Ищем без учета регистра
+        pattern = re.compile(search, re.IGNORECASE)
+        result = [
+            transaction
+            for transaction in data
+            if pattern.search(transaction.get("description", ""))
+        ]
+        logger.info("Найдено %d транзакций по запросу '%s'", len(result), search)
+        return result
+    except re.error as error:
+        logger.error("Ошибка регулярного выражения: %s", error)
+        return []
+
+
+def process_bank_operations(data: list[dict], categories: list) -> dict:
+    """
+    Подсчитывает количество операций по каждой категории из списка.
+    """
+    logger.debug("Подсчет операций по категориям: %s", categories)
+    counter: Counter[str] = Counter()
+    for transaction in data:
+        description = transaction.get("description", "")
+        if description in categories:
+            counter[description] += 1
+
+    logger.info("Подсчет завершен. Найдено категорий: %d", len(counter))
+    return dict(counter)
